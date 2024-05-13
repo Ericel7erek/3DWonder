@@ -14,7 +14,7 @@ export function Dragon(props) {
   useEffect(()=> {
     actions["Flying_Idle"].reset().fadeIn(0.5).play();
     return () => actions["Flying_Idle"].fadeOut(0.5)
-  })
+  }, [])
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
