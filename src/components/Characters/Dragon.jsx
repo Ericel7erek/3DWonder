@@ -6,15 +6,16 @@ Command: npx gltfjsx@6.2.16 public/models/Dragon_Evolved.gltf -o src/Components/
 import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
-export function Dragon(props) {
+export function Dragon({hovered, ...props}) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Dragon_Evolved.gltf')
   const { actions } = useAnimations(animations, group)
   console.log(actions)
   useEffect(()=> {
-    actions["Flying_Idle"].reset().fadeIn(0.5).play();
-    return () => actions["Flying_Idle"].fadeOut(0.5)
-  }, [])
+    const animations = hovered? "Yes":"Flying_Idle"
+    actions[animations]?.reset().fadeIn(0.5).play();
+    return () => actions[animations].fadeOut(0.5)
+  }, [hovered])
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
